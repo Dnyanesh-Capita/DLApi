@@ -1,0 +1,35 @@
+{
+    "name": "DreamLines_ApiGateway",
+    "version": "1.0.0",
+    "description": "apiGateway for airlines",
+    "main": "application/App.js",
+    "author": {
+        "name": "Dnyanesh Deshpande",
+        "email": "dnyan.desh@gmail.com"
+    },
+    "scripts": {
+        "start": "node application/App.js"
+    },
+    "dependencies": {
+        "express": "^4.10.4",
+        "express-jwt": "^3.3.0",
+        "lodash": "^3.10.0",
+        "rsvp": "^3.0.18",
+        "shortid": "^2.2.2",
+        "validator": "^4.5.0"
+    },
+    "devDependencies": {
+        "gulp": "^3.9.0",
+        "gulp-clean": "^0.3.1",
+        "gulp-nodemon": "^1.0.4",
+        "gulp-nsp": "^2.3.0",
+        "gulp-remove-lines": "^0.1.0",
+        "gulp-replace": "^0.5.0",
+        "gulp-tslint": "^3.1.1-beta",
+        "gulp-typescript": "^2.7.8",
+        "gulp-util": "^3.0.1",
+        "typescript": "^1.5.0-beta"
+    }
+    
+}
+
