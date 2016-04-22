@@ -8,7 +8,7 @@ var gulp = require('gulp'),
     clean = require('gulp-clean'),
     typescript = require('typescript'),
     tslint = require('gulp-tslint'),
-    runSequence = require('run-sequence'),
+    //runSequence = require('run-sequence'),
     gulpNSP = require('gulp-nsp');
 
 var settings = {
