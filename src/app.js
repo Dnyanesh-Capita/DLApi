@@ -42,13 +42,18 @@ app.use('/api/all/stats', function (req, res) {
         res.json({ message: data });
     });
 });
-app.use('/api/stats/:airportId', function (req, res) {
+app.use('/api/stats/:airportName', function (req, res) {
     var id = req.param("airportId");
-    res.json({ message: AirPlaneDataController_1.AirPlanDataController.prototype.getStateByAirPortID() });
+    //aalborg-airport
+    AirPlaneDataController_1.AirPlanDataController.prototype.getStateByAirPortID("aalborg-airport").then(function (data) {
+        res.json({ message: data });
+    });
 });
 app.use('/api/reviews/:airportId', function (req, res) {
-    var id = req.param("airportId");
-    res.json({ message: AirPlaneDataController_1.AirPlanDataController.prototype.getReviewByAirPortID() });
+    //aalborg-airport
+    AirPlaneDataController_1.AirPlanDataController.prototype.getReviewByAirPortID("aalborg-airport").then(function (data) {
+        res.json({ message: data });
+    });
 });
 app.use('/api/uploadUrl', function (req, res) {
     res.json({ message: CSVuploadController_1.CSVuploadController.prototype.processCSV() });

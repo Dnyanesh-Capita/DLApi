@@ -24,7 +24,16 @@ export class AirPlanDataController {
 
 				let collection = db.collection('AirportReviews');
 
-				collection.find().toArray(function(err, result) {
+
+				collection.aggregate(
+					[{
+						$group: {
+							_id: "$airport_name",
+							"name of the airport": { $first: "$airport_name" },
+							"count of reviews": { $sum: 1 }
+						}
+					}]
+				).toArray(function(err, result) {
 					
 					//Close DB
 					//db.close();
@@ -36,7 +45,7 @@ export class AirPlanDataController {
 	
 	//TODO : Return real data
 	//Add unit test
-	public getStateByAirPortID(): any {
+	public getStateByAirPortID(airpotName): any {
 
 		return new Promise<any>((resolve, reject) => {
 			MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
@@ -46,7 +55,18 @@ export class AirPlanDataController {
 
 				let collection = db.collection('AirportReviews');
 
-				collection.find().toArray(function(err, result) {
+
+				collection.aggregate(
+					[
+					{ $match: { airport_name: "aalborg-airport" } } ,  
+					{$group : {
+					_id :  "$airport_name",
+					"airport name": { $first: "$airport_name" },
+					"count of reviews": { $sum: 1 },
+					"over all rating" :{ $avg: "$overall_rating"},
+					"count of recommendations": {$sum: "$recommended"}
+					}}
+				]).toArray(function(err, result) {
 					
 					//Close DB
 					//db.close();
@@ -58,7 +78,7 @@ export class AirPlanDataController {
 	
 	//TODO : Return real data
 	//Add unit test
-	public getReviewByAirPortID(): any {
+	public getReviewByAirPortID(airpotName): any {
 
 		return new Promise<any>((resolve, reject) => {
 			MongoClient.connect('mongodb://localhost:27017/', function(err, db) {
@@ -68,7 +88,11 @@ export class AirPlanDataController {
 
 				let collection = db.collection('AirportReviews');
 
-				collection.find().toArray(function(err, result) {
+				collection.aggregate( [
+					{ $match : { airport_name: "aalborg-airport" } }, 
+					{ $sort : { date : -1} },
+					{ $project : { overall_rating : 1 ,  recommended: 2 , date:3, author_country: 4, content:5} } 
+				]).toArray(function(err, result) {
 					
 					//Close DB
 					//db.close();
