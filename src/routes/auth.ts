@@ -1,3 +1,5 @@
+//Add in middle ware USE it
+
 /// <reference path="../../typings/tsd.d.ts" />
 
 var jwt = require('jwt-simple');

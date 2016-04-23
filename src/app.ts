@@ -1,15 +1,22 @@
+//ToDo; Clean file 
+//Replace var with let
+//Console log on console need to be looked and changed
+
 /// <reference path="../typings/tsd.d.ts" />
 
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
- 
+
+import { AirPlanDataController } from './../src/controller/AirPlaneDataController'
+import { CSVuploadController } from './../src/controller/CSVuploadController';
+
 var app = express();
- 
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
- 
+
 app.all('/*', function(req, res, next) {
   // CORS headers
   res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
@@ -28,9 +35,35 @@ app.all('/*', function(req, res, next) {
 // Any URL's that do not follow the below pattern should be avoided unless you 
 // are sure that authentication is not needed
 //app.all('/api/v1/*', [require('./middlewares/validateRequest')]);
+// var router = express.Router();
+// 
+// router.get('/', function(req, res) {
+//   res.json({ message: 'Test end point form DreamLines_API' });
+// });
  
-app.use('/', require('./routes'));
- 
+//app.use('/', require('./routes'));
+
+//app.use('/api', router);
+
+app.use('/api/all/stats', function(req, res) {
+  AirPlanDataController.prototype.getStat().then((data) =>{
+     res.json({ message: data });
+  });
+});
+
+app.use('/api/stats/:airportId', function(req, res) {
+   let id = req.param("airportId");
+  res.json({ message: AirPlanDataController.prototype.getStateByAirPortID() });
+});
+
+app.use('/api/reviews/:airportId', function(req, res) {
+  let id = req.param("airportId");
+  res.json({ message: AirPlanDataController.prototype.getReviewByAirPortID() });
+});
+
+app.use('/api/uploadUrl',function(req,res){
+  res.json({ message: CSVuploadController.prototype.processCSV() });
+});
 // If no route is matched by now, it must be a 404
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -38,9 +71,10 @@ app.use(function(req, res, next) {
   next(err);
 });
  
+ 
 // Start the server
 app.set('port', 5000);
- 
+
 var server = app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + server.address().port);
 });
