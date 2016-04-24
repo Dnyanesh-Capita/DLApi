@@ -7,9 +7,19 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var AirPlaneDataController_1 = require('./../src/controller/AirPlaneDataController');
-var CSVuploadController_1 = require('./../src/controller/CSVuploadController');
+var nconf = require('nconf');
+var AirPlaneAllStatController_1 = require('./../src/controller/AirPlaneAllStatController');
+var DiscCSVToMongoController_1 = require('./../src/controller/DiscCSVToMongoController');
+var CSVDownloadController_1 = require('./../src/controller/CSVDownloadController');
+var URLCSVToMongoDBController_1 = require('./../src/controller/URLCSVToMongoDBController');
+var AirPlaneReviewByAirportNameController_1 = require('./../src/controller/AirPlaneReviewByAirportNameController');
+var AirPlaneStatByAirportNameController_1 = require('./../src/controller/AirPlaneStatByAirportNameController');
+var AllReviewsOverAllRatingAboveTowController_1 = require('./../src/controller/AllReviewsOverAllRatingAboveTowController');
+AllReviewsOverAllRatingAboveTowController_1.AllReviewsOverAllRatingAboveTowController;
 var app = express();
+nconf.argv()
+    .env()
+    .file({ file: __dirname + '/config.json' });
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.all('/*', function (req, res, next) {
@@ -38,25 +48,33 @@ app.all('/*', function (req, res, next) {
 //app.use('/', require('./routes'));
 //app.use('/api', router);
 app.use('/api/all/stats', function (req, res) {
-    AirPlaneDataController_1.AirPlanDataController.prototype.getStat().then(function (data) {
-        res.json({ message: data });
+    AirPlaneAllStatController_1.AirPlaneAllStatController.prototype.getStat().then(function (data) {
+        res.json({ result: data });
     });
 });
-app.use('/api/stats/:airportName', function (req, res) {
-    var id = req.param("airportId");
-    //aalborg-airport
-    AirPlaneDataController_1.AirPlanDataController.prototype.getStateByAirPortID("aalborg-airport").then(function (data) {
-        res.json({ message: data });
+app.use('/api/:airportName/stats', function (req, res) {
+    AirPlaneStatByAirportNameController_1.AirPlaneStatByAirportNameController.prototype.getStatByAirPortName(req.param("airportName")).then(function (data) {
+        res.json({ result: data });
     });
 });
-app.use('/api/reviews/:airportId', function (req, res) {
-    //aalborg-airport
-    AirPlaneDataController_1.AirPlanDataController.prototype.getReviewByAirPortID("aalborg-airport").then(function (data) {
-        res.json({ message: data });
+app.use('/api/:airportName/reviews', function (req, res) {
+    AirPlaneReviewByAirportNameController_1.AirPlaneReviewByAirportNameController.prototype.getReviewByAirPortName(req.param("airportName")).then(function (data) {
+        res.json({ result: data });
     });
 });
-app.use('/api/uploadUrl', function (req, res) {
-    res.json({ message: CSVuploadController_1.CSVuploadController.prototype.processCSV() });
+app.use('/api/reviews/overAllRating/2', function (req, res) {
+    AllReviewsOverAllRatingAboveTowController_1.AllReviewsOverAllRatingAboveTowController.prototype.getReviewsOverAllRatingAboveTwo().then(function (data) {
+        res.json({ result: data });
+    });
+});
+app.use('/api/csvdownload', function (req, res) {
+    res.json({ message: CSVDownloadController_1.CSVDownloadController.prototype.downloadCSVAndSaveToDisc() });
+});
+app.use('/api/uploadDiscCSVTOMongoDB', function (req, res) {
+    res.json({ message: DiscCSVToMongoController_1.DiscCSVToMongoController.prototype.pushDiscCSVToMongoDB() });
+});
+app.use('/api/urlCSVTOMongoDB', function (req, res) {
+    res.json({ message: URLCSVToMongoDBController_1.URLCSVToMongoDBController.prototype.pushURLCSVToMongoDB() });
 });
 // If no route is matched by now, it must be a 404
 app.use(function (req, res, next) {
