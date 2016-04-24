@@ -73,6 +73,9 @@ export class AirPlaneReviewByAirportNameController {
 					resolve(result);
 				});
 			});
+		}).catch((err) =>{
+			console.log("error: AirPlaneReviewByAirportNameController.getReviewByAirPortName - Rejected promise for Air Plane Review By Airport Name " + err);
+			throw err;
 		});
 	}
 }

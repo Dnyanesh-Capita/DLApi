@@ -30,6 +30,7 @@ export class CSVDownloadController {
 				
 		}).catch((err) =>{
 			console.log("error: CSVDownloadController.downloadCSVAndSaveToDisc - Rejected promise for All Stat " + err);
+			throw err;
 		});
 	}
 }

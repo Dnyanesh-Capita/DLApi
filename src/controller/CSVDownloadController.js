@@ -28,6 +28,7 @@ var CSVDownloadController = (function () {
                 .pipe(fs.createWriteStream('./AirPortReviews.csv'));
         }).catch(function (err) {
             console.log("error: CSVDownloadController.downloadCSVAndSaveToDisc - Rejected promise for All Stat " + err);
+            throw err;
         });
     };
     return CSVDownloadController;

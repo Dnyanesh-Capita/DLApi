@@ -69,6 +69,7 @@ export class AirPlaneStatByAirportNameController {
 			});
 		}).catch((err) =>{
 			console.log("error: AirPlaneStatByAirportNameController.getStatByAirPortName - Rejected promise for Stat by AirPortName " + err);
+			throw err;
 		});
 	}
 }

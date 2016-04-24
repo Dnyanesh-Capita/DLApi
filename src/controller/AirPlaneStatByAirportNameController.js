@@ -63,6 +63,7 @@ var AirPlaneStatByAirportNameController = (function () {
             });
         }).catch(function (err) {
             console.log("error: AirPlaneStatByAirportNameController.getStatByAirPortName - Rejected promise for Stat by AirPortName " + err);
+            throw err;
         });
     };
     return AirPlaneStatByAirportNameController;

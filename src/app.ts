@@ -4,10 +4,10 @@
 
 /// <reference path="../typings/tsd.d.ts" />
 
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
+let express = require('express');
+let path = require('path');
+let logger = require('morgan');
+let bodyParser = require('body-parser');
 
 import nconf = require('nconf');
 import { AirPlaneAllStatController } from './../src/controller/AirPlaneAllStatController'
@@ -17,15 +17,15 @@ import { URLCSVToMongoDBController } from './../src/controller/URLCSVToMongoDBCo
 import { AirPlaneReviewByAirportNameController } from './../src/controller/AirPlaneReviewByAirportNameController';
 import { AirPlaneStatByAirportNameController } from './../src/controller/AirPlaneStatByAirportNameController';
 import { AllReviewsOverAllRatingAboveTowController } from './../src/controller/AllReviewsOverAllRatingAboveTowController';
-AllReviewsOverAllRatingAboveTowController
 
-var app = express();
+
+let app = express();
 
 nconf.argv()
-    .env()
-    .file({ file: __dirname + '/config.json' });
-    
-    
+  .env()
+  .file({ file: __dirname + '/config.json' });
+
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
@@ -41,67 +41,93 @@ app.all('/*', function(req, res, next) {
     next();
   }
 });
- 
-// Auth Middleware - This will check if the token is valid
-// Only the requests that start with /api/v1/* will be checked for the token.
-// Any URL's that do not follow the below pattern should be avoided unless you 
-// are sure that authentication is not needed
-//app.all('/api/v1/*', [require('./middlewares/validateRequest')]);
-// var router = express.Router();
-// 
-// router.get('/', function(req, res) {
-//   res.json({ message: 'Test end point form DreamLines_API' });
-// });
- 
-//app.use('/', require('./routes'));
 
-//app.use('/api', router);
 
-app.use('/api/all/stats', function(req, res) {
-  AirPlaneAllStatController.prototype.getStat().then((data) => {
-    res.json({ result: data });
-  });
+app.get('/api/all/stats', function(req, res) {
+  AirPlaneAllStatController.prototype.getStat()
+    .then((data) => {
+      res.json({ result: data });
+    })
+    .catch((err) => {
+      res.status(500).send('Something went wrong');
+    });
 });
 
-app.use('/api/:airportName/stats', function(req, res) {
+app.get('/api/:airportName/stats', function(req, res) {
 
-  AirPlaneStatByAirportNameController.prototype.getStatByAirPortName(req.param("airportName")).then((data) => {
-    res.json({ result: data });
-  });
+  AirPlaneStatByAirportNameController.prototype.getStatByAirPortName(req.param("airportName"))
+    .then((data) => {
+      res.json({ result: data });
+    })
+    .catch((err) => {
+      res.status(500).send('Something went wrong');
+    });
 
 });
 
-app.use('/api/:airportName/reviews', function(req, res) {
+app.get('/api/:airportName/reviews', function(req, res) {
 
-  AirPlaneReviewByAirportNameController.prototype.getReviewByAirPortName(req.param("airportName")).then((data) => {
-    res.json({ result: data });
-  });
+  AirPlaneReviewByAirportNameController.prototype.getReviewByAirPortName(req.param("airportName"))
+    .then((data) => {
+      res.json({ result: data });
+    })
+    .catch((err) => {
+      res.status(500).send('Something went wrong');
+    });
 });
 
-app.use('/api/reviews/overAllRating/2', function(req, res) {
+app.get('/api/reviews/overAllRating/above/2', function(req, res) {
 
-  AllReviewsOverAllRatingAboveTowController.prototype.getReviewsOverAllRatingAboveTwo().then((data) => {
-    res.json({ result: data });
-  });
+  AllReviewsOverAllRatingAboveTowController.prototype.getReviewsOverAllRatingAboveTwo()
+    .then((data) => {
+      res.json({ result: data });
+    })
+    .catch((err) => {
+      res.status(500).send('Something went wrong');
+    });
 });
 
 
+//**** Following 3 enpoints I have kept intentianlly app.use 
+// as there are not endpoints as such but  just for devlopment and testing ease
+// they are here
+//Actually theses endpoints can be convered to cron job and set to one month or so 
+//EndPoint:1
 app.use('/api/csvdownload', function(req, res) {
-  res.json({ message: CSVDownloadController.prototype.downloadCSVAndSaveToDisc() });
+  CSVDownloadController.prototype.downloadCSVAndSaveToDisc()
+    .then((data) => {
+      res.json({ result: "CSV Download Sucessfully!!" });
+    })
+    .catch((err) => {
+      res.status(500).send('Something went wrong');
+    });
 });
-
+//EndPoint:2
 app.use('/api/uploadDiscCSVTOMongoDB', function(req, res) {
-  res.json({ message: DiscCSVToMongoController.prototype.pushDiscCSVToMongoDB() });
+
+  DiscCSVToMongoController.prototype.pushDiscCSVToMongoDB()
+    .then((data) => {
+      res.json({ result: "CSV data push to mongo DN Sucessfully!!" });
+    })
+    .catch((err) => {
+      res.status(500).send('Something went wrong');
+    });
+});
+//EndPoint:3
+app.use('/api/urlCSVTOMongoDB', function(req, res) {
+
+  URLCSVToMongoDBController.prototype.pushURLCSVToMongoDB()
+    .then((data) => {
+      res.json({ result: "Data from URL CSV pushed to mongo DB sucessfully!!!" });
+    })
+    .catch((err) => {
+      res.status(500).send('Something went wrong');
+    });
 });
 
-app.use('/api/urlCSVTOMongoDB', function(req, res) {
-  res.json({ message: URLCSVToMongoDBController.prototype.pushURLCSVToMongoDB() });
-});
-// If no route is matched by now, it must be a 404
+// If no route is matched
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  //err.status = 404;
-  next(err);
+  res.status(404).send('No match fount!!! Try something else :)');
 });
  
  

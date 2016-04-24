@@ -55,6 +55,7 @@ var AirPlaneAllStatController = (function () {
             });
         }).catch(function (err) {
             console.log("error: AirPlaneAllStatController.getStat - Rejected promise for All Stat " + err);
+            throw err;
         });
     };
     return AirPlaneAllStatController;
