@@ -40,8 +40,6 @@ var AirPlaneReviewByAirportNameController = (function () {
     *       "error": "UserNotFound"
     *     }
     */
-    //TODO : Return real data
-    //Add unit test
     AirPlaneReviewByAirportNameController.prototype.getReviewByAirPortName = function (airpotName) {
         console.log("info: Entered in function to return Review by AirPortName");
         return new rsvp_1.Promise(function (resolve, reject) {

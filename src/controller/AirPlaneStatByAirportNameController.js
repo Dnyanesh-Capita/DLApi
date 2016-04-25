@@ -36,7 +36,6 @@ var AirPlaneStatByAirportNameController = (function () {
     *       "error": "UserNotFound"
     *     }
     */
-    //Add unit test
     AirPlaneStatByAirportNameController.prototype.getStatByAirPortName = function (airpotName) {
         console.log("info: Entered in function to return Stat by AirPortName");
         return new rsvp_1.Promise(function (resolve, reject) {

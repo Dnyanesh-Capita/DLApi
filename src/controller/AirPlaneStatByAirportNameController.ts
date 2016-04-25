@@ -36,7 +36,6 @@ export class AirPlaneStatByAirportNameController {
 	*       "error": "UserNotFound"
 	*     }
 	*/
-	//Add unit test
 	public getStatByAirPortName(airpotName): any {
 
         console.log("info: Entered in function to return Stat by AirPortName");

@@ -1,0 +1,7 @@
+{
+  "name": "DreamLinesReviewsAPI",
+  "version": "0.1.0",
+  "description": "This API is for reviews information",
+  "title": "Reviews API for clients",
+  "url" : "https://api.github.com/v1"
+}

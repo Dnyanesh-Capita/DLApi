@@ -9,12 +9,6 @@ import { Promise } from 'rsvp';
 //Controller to take data from URL CSV and push it to Mongo DB
 export class URLCSVToMongoDBController {
 
-
-	constructor() {
-		//TODO: Add related properties and functions;
-	}
-
-
     //Function: Read data from URL CSV file and upload to mongo collection
 	public pushURLCSVToMongoDB(): Promise<any> {
 
@@ -34,8 +28,7 @@ export class URLCSVToMongoDBController {
 
 					console.log("info: Mongo db connected sucessfully");
                     
-					
-					db.collection('AirportReviews').insert(jsonObj, { _id: "userid", seq: 0 });
+					db.collection('AirportReviews').update(jsonObj, { _id: "userid", seq: 0 });
 					console.log('info: AirportReviews Data Inserted Sucessfully');
 					resolve();
 					

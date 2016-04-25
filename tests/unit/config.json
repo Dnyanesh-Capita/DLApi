@@ -1,0 +1,4 @@
+{
+	"mongoUrl" : "mongodb://localhost:27017/",
+	"csvURL" : "https://raw.githubusercontent.com/quankiquanki/skytrax-reviews-dataset/master/data/airport.csv"
+}

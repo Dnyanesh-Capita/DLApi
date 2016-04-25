@@ -9,11 +9,10 @@ export class AllReviewsOverAllRatingAboveTowController {
 
 		
 	/**
-	* @api {get} /api/all/stats Request for Airports with Review count
+	* @api {get} /api/all/stats All reviews for Airports with overall_rating more than 2 
 	* @apiName GetStat
 	* @apiGroup Reviews
 	*
-	* @apiParam {Number} id Users unique ID.
 	*
 	* @apiSuccess {String} airportName Name of Airport.
 	* @apiSuccess {String} countOfReviews  Count of review in Syatem.
@@ -33,7 +32,6 @@ export class AllReviewsOverAllRatingAboveTowController {
 	*       "error": "UserNotFound"
 	*     }
 	*/
-	//Add unit test
 	public getReviewsOverAllRatingAboveTwo(): Promise<any> {
 		
 		return new Promise<any>((resolve, reject) => {

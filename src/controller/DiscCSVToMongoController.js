@@ -10,7 +10,6 @@ var nconf = require('nconf');
 // Controller is to push CSV from Disc and move to MongoDb
 var DiscCSVToMongoController = (function () {
     function DiscCSVToMongoController() {
-        //TODO: Add related properties and functions;
     }
     //Function: Read data from Disc file and upload to mongo collection
     DiscCSVToMongoController.prototype.pushDiscCSVToMongoDB = function () {
@@ -28,18 +27,10 @@ var DiscCSVToMongoController = (function () {
                         console.log("info: Promise reject with error");
                         reject(err);
                     }
-                    db.collectionNames(function (err, res) {
-                        if (err) {
-                            console.log("error: URLCSVToMongoDBController.pushURLCSVToMongoDB - Mongon DB can not be connected with error" + err);
-                            console.log("info: Promise reject with error");
-                            reject(err);
-                        }
-                        console.log(res);
-                        console.log("info: Mongo db connected sucessfully");
-                        db.collection('AirportReviews').insert(jsonObj, { _id: "userid", seq: 0 });
-                        console.log('AirportReviews Data Inserted Sucessfully');
-                        resolve({ "msg": "Data Uploaded Sucessfully" });
-                    });
+                    console.log("info: Mongo db connected sucessfully");
+                    db.collection('AirportReviews').insert(jsonObj, { _id: "userid", seq: 0 });
+                    console.log('AirportReviews Data Inserted Sucessfully');
+                    resolve({ "msg": "Data Uploaded Sucessfully" });
                 });
             });
             //read from file

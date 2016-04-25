@@ -11,7 +11,6 @@ var AirPlaneAllStatController = (function () {
     * @apiName GetStat
     * @apiGroup Reviews
     *
-    * @apiParam {Number} id Users unique ID.
     *
     * @apiSuccess {String} airportName Name of Airport.
     * @apiSuccess {String} countOfReviews  Count of review in Syatem.
@@ -31,7 +30,7 @@ var AirPlaneAllStatController = (function () {
     *       "error": "UserNotFound"
     *     }
     */
-    //Add unit test
+    // TO ADD apidoc - apidoc -i controller/ -o apidoc
     AirPlaneAllStatController.prototype.getStat = function () {
         return new rsvp_1.Promise(function (resolve, reject) {
             console.log("info: Entered in function to return All Stat");
@@ -57,6 +56,12 @@ var AirPlaneAllStatController = (function () {
             console.log("error: AirPlaneAllStatController.getStat - Rejected promise for All Stat " + err);
             throw err;
         });
+    };
+    AirPlaneAllStatController.prototype.Add = function () {
+        this.Add1();
+    };
+    AirPlaneAllStatController.prototype.Add1 = function () {
+        return;
     };
     return AirPlaneAllStatController;
 }());

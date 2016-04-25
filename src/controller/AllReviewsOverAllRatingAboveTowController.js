@@ -7,11 +7,10 @@ var AllReviewsOverAllRatingAboveTowController = (function () {
     function AllReviewsOverAllRatingAboveTowController() {
     }
     /**
-    * @api {get} /api/all/stats Request for Airports with Review count
+    * @api {get} /api/all/stats All reviews for Airports with overall_rating more than 2
     * @apiName GetStat
     * @apiGroup Reviews
     *
-    * @apiParam {Number} id Users unique ID.
     *
     * @apiSuccess {String} airportName Name of Airport.
     * @apiSuccess {String} countOfReviews  Count of review in Syatem.
@@ -31,7 +30,6 @@ var AllReviewsOverAllRatingAboveTowController = (function () {
     *       "error": "UserNotFound"
     *     }
     */
-    //Add unit test
     AllReviewsOverAllRatingAboveTowController.prototype.getReviewsOverAllRatingAboveTwo = function () {
         return new rsvp_1.Promise(function (resolve, reject) {
             console.log("info: Entered in function to return All Stat");

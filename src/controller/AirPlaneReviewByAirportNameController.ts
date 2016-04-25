@@ -47,8 +47,6 @@ export class AirPlaneReviewByAirportNameController {
 	*       "error": "UserNotFound"
 	*     }
 	*/
-	//TODO : Return real data
-	//Add unit test
 	public getReviewByAirPortName(airpotName): any {
 
          console.log("info: Entered in function to return Review by AirPortName"); 

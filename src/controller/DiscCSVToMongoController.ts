@@ -11,10 +11,6 @@ import nconf = require('nconf');
 // Controller is to push CSV from Disc and move to MongoDb
 export class DiscCSVToMongoController {
 
-	constructor() {
-		//TODO: Add related properties and functions;
-	}
-
     //Function: Read data from Disc file and upload to mongo collection
 	public pushDiscCSVToMongoDB(): Promise<any> {
 		console.log("info: Entered to the Push Disc CSV To MongoDB function");

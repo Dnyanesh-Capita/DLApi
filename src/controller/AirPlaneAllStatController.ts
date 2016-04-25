@@ -13,7 +13,6 @@ export class AirPlaneAllStatController {
 	* @apiName GetStat
 	* @apiGroup Reviews
 	*
-	* @apiParam {Number} id Users unique ID.
 	*
 	* @apiSuccess {String} airportName Name of Airport.
 	* @apiSuccess {String} countOfReviews  Count of review in Syatem.
@@ -33,7 +32,7 @@ export class AirPlaneAllStatController {
 	*       "error": "UserNotFound"
 	*     }
 	*/
-	//Add unit test
+	// TO ADD apidoc - apidoc -i controller/ -o apidoc
 	public getStat(): Promise<any> {
 		
 		return new Promise<any>((resolve, reject) => {
@@ -66,5 +65,12 @@ export class AirPlaneAllStatController {
 			console.log("error: AirPlaneAllStatController.getStat - Rejected promise for All Stat " + err);
 			throw err;
 		});
+	}
+	
+	public Add(){
+		this.Add1();
+	}
+	public Add1(){
+		return; 
 	}
 }
