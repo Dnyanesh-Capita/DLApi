@@ -66,11 +66,4 @@ export class AirPlaneAllStatController {
 			throw err;
 		});
 	}
-	
-	public Add(){
-		this.Add1();
-	}
-	public Add1(){
-		return; 
-	}
 }

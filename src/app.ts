@@ -110,7 +110,7 @@ app.use('/api/uploadDiscCSVTOMongoDB', function(req, res) {
       res.json({ result: "CSV data push to mongo DN Sucessfully!!" });
     })
     .catch((err) => {
-      res.status(500).send('Something went wrong');
+      res.status(500).send('Something went wrong');4
     });
 });
 //EndPoint:3

@@ -92,6 +92,7 @@ app.use('/api/uploadDiscCSVTOMongoDB', function (req, res) {
     })
         .catch(function (err) {
         res.status(500).send('Something went wrong');
+        4;
     });
 });
 //EndPoint:3

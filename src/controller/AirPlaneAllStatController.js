@@ -57,12 +57,6 @@ var AirPlaneAllStatController = (function () {
             throw err;
         });
     };
-    AirPlaneAllStatController.prototype.Add = function () {
-        this.Add1();
-    };
-    AirPlaneAllStatController.prototype.Add1 = function () {
-        return;
-    };
     return AirPlaneAllStatController;
 }());
 exports.AirPlaneAllStatController = AirPlaneAllStatController;

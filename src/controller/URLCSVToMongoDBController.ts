@@ -12,7 +12,7 @@ export class URLCSVToMongoDBController {
     //Function: Read data from URL CSV file and upload to mongo collection
 	public pushURLCSVToMongoDB(): Promise<any> {
 
-		console.log("info: Entered to the Push Disc CSV To MongoDB function");
+		console.log("info: Entered to the Push URL CSV To MongoDB function");
 
 		return new Promise<any>((resolve, reject) => {
 
@@ -28,16 +28,14 @@ export class URLCSVToMongoDBController {
 
 					console.log("info: Mongo db connected sucessfully");
                     
-					db.collection('AirportReviews').update(jsonObj, { _id: "userid", seq: 0 });
+					db.collection('AirportReviews').insert(jsonObj, { _id: "userid", seq: 0 });
 					console.log('info: AirportReviews Data Inserted Sucessfully');
-					resolve();
-					
+					resolve({"msg":"Data Uploaded Sucessfully"});
 				});
-
 			});
-
 			//read from file
 			request(nconf.get("csvURL")).pipe(csvConverter);
+			
 		}).catch((err) => {
 			console.log("error: URLCSVToMongoDBController.pushURLCSVToMongoDB - Rejected promise for Stat by AirPortName " + err);
 			throw err;

@@ -12,7 +12,7 @@ var URLCSVToMongoDBController = (function () {
     }
     //Function: Read data from URL CSV file and upload to mongo collection
     URLCSVToMongoDBController.prototype.pushURLCSVToMongoDB = function () {
-        console.log("info: Entered to the Push Disc CSV To MongoDB function");
+        console.log("info: Entered to the Push URL CSV To MongoDB function");
         return new rsvp_1.Promise(function (resolve, reject) {
             var csvConverter = new Converter();
             csvConverter.on("end_parsed", function (jsonObj) {
@@ -23,9 +23,9 @@ var URLCSVToMongoDBController = (function () {
                         reject(err);
                     }
                     console.log("info: Mongo db connected sucessfully");
-                    db.collection('AirportReviews').update(jsonObj, { _id: "userid", seq: 0 });
+                    db.collection('AirportReviews').insert(jsonObj, { _id: "userid", seq: 0 });
                     console.log('info: AirportReviews Data Inserted Sucessfully');
-                    resolve();
+                    resolve({ "msg": "Data Uploaded Sucessfully" });
                 });
             });
             //read from file
