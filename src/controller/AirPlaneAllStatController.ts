@@ -32,7 +32,6 @@ export class AirPlaneAllStatController {
 	*       "error": "UserNotFound"
 	*     }
 	*/
-	// TO ADD apidoc - apidoc -i controller/ -o apidoc
 	public getStat(): Promise<any> {
 		
 		return new Promise<any>((resolve, reject) => {
